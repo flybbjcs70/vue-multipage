@@ -2,7 +2,7 @@
 	<div>
 		<h1>我是用户信息</h1>
 		<figure>
-			<img src="../../static/images/home/logo.jpg" alt="头像">
+			<img src="../../assets/images/home/logo.jpg" alt="头像">
 		</figure>
 		<div id="bg">
 			<h3>这里是测试背景图片</h3>
@@ -11,8 +11,9 @@
 	</div>
 </template>
 <style rel="stylesheet/scss" lang="sass">
+	@import "../../sass/home/index-info";
     #bg h3 {
-		background: url("../../static/images/holmes.jpg");
+		background: url("../../assets/images/holmes.jpg");
 	}
 </style>
 <script>

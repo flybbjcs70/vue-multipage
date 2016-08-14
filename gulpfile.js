@@ -32,7 +32,8 @@ const webpackConfig = {
         extensions: ['', '.js', '.vue', '.scss', '.css']
     },
     output: {
-        publicPath: 'static/',
+        publicPath: '/static/',
+		filename: 'js/[name]'
 	},
     module: {
         loaders: [
@@ -43,7 +44,7 @@ const webpackConfig = {
 				loader: 'url',
 				query: {
 					limit: 500,
-					name: '[path][name].[ext]?[hash:10]'
+					name: 'images/[name].[ext]?[hash:10]'
 				}
 			},
         ]
@@ -172,13 +173,14 @@ gulp.task('views:build', function () {
 gulp.task('views', function () {
     return gulp.src(src.views)
         .pipe(revAppend())
-
         .pipe(gulp.dest(dist.views));
 });
 gulp.task('reload', function () {
     browserSync.init(src.views, {
         startPath: "/views/",
-        server: './src',
+        server: {
+        	baseDir : ['./src']
+		},
         notify: false
     });
     //gulp.watch([csasspath],['collegesass']);
@@ -209,31 +211,18 @@ gulp.task('build', function () {
         });
     });
 });
-/*
- * mock data output APIDOC
- * */
-
-gulp.task('api:mock', function () {
-	gulp.watch(['./src/mock/controller/**.*']).on('change', function () {
-		exec('apidoc -i ./src/mock -o doc', function (err, output) {
-			if(err) console.error(err);
-			console.log(output);
-		});
-	});
-});
-
 
 function compileJS(path) {
 	// console.log(path);
 	return gulp.src(path)
 	.pipe(named(function (file) {
 		var history = JSON.parse(JSON.stringify(file)).history[0];
-		return history.substring(0, history.length - 3).replace(/(\\src\\js|\/src\/js)/ig, '') + '.es6'
+		return history.split('/js/')[1];
 	}))
 	.pipe(webpack(webpackConfig))
 	.pipe(browserSync.reload({
 		stream: true
 	}))
-	.pipe(gulp.dest('./src/static/es6'))
-	.pipe(gulp.dest('./public/static/es6'))
+	.pipe(gulp.dest('./src/static'))
+	.pipe(gulp.dest('./public/static'))
 }

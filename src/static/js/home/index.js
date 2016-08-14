@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "static/";
+/******/ 	__webpack_require__.p = "/static/";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -140,7 +140,7 @@
 
 
 	// module
-	exports.push([module.id, "#bg h3 {\n  background: url(" + __webpack_require__(6) + "); }\n", ""]);
+	exports.push([module.id, "#kodo {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex; }\n\n#bg h3 {\n  background: url(" + __webpack_require__(6) + "); }\n", ""]);
 
 	// exports
 
@@ -205,7 +205,7 @@
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "src/static/images/holmes.jpg?39e4bbb59b";
+	module.exports = __webpack_require__.p + "images/holmes.jpg?39e4bbb59b";
 
 /***/ },
 /* 7 */
@@ -442,7 +442,7 @@
 	// 	<div>
 	// 		<h1>我是用户信息</h1>
 	// 		<figure>
-	// 			<img src="../../static/images/home/logo.jpg" alt="头像">
+	// 			<img src="../../assets/images/home/logo.jpg" alt="头像">
 	// 		</figure>
 	// 		<div id="bg">
 	// 			<h3>这里是测试背景图片</h3>
@@ -451,8 +451,9 @@
 	// 	</div>
 	// </template>
 	// <style rel="stylesheet/scss" lang="sass">
+	// 	@import "../../sass/home/index-info";
 	//     #bg h3 {
-	// 		background: url("../../static/images/holmes.jpg");
+	// 		background: url("../../assets/images/holmes.jpg");
 	// 	}
 	// </style>
 	// <script>
@@ -474,7 +475,7 @@
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "src/static/images/home/logo.jpg?82ceb5918f";
+	module.exports = __webpack_require__.p + "images/logo.jpg?82ceb5918f";
 
 /***/ },
 /* 11 */
