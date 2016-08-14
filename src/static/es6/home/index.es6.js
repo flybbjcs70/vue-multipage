@@ -121,8 +121,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./index-info.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./index-info.vue");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../node_modules/sass-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./index-info.vue", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../node_modules/sass-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./index-info.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -140,7 +140,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n    #bg p {\n\t\tbackground: url(" + __webpack_require__(6) + ");\n\t}\n", ""]);
+	exports.push([module.id, "#bg h3 {\n  background: url(" + __webpack_require__(6) + "); }\n", ""]);
 
 	// exports
 
@@ -450,8 +450,8 @@
 	// 		</div>
 	// 	</div>
 	// </template>
-	// <style>
-	//     #bg p {
+	// <style rel="stylesheet/scss" lang="sass">
+	//     #bg h3 {
 	// 		background: url("../../static/images/holmes.jpg");
 	// 	}
 	// </style>

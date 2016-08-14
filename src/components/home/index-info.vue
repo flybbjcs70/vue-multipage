@@ -10,8 +10,8 @@
 		</div>
 	</div>
 </template>
-<style>
-    #bg p {
+<style rel="stylesheet/scss" lang="sass">
+    #bg h3 {
 		background: url("../../static/images/holmes.jpg");
 	}
 </style>
