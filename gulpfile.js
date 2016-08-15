@@ -24,7 +24,6 @@ const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const revCollector = require('gulp-rev-collector');
 const exec = require('child_process').exec;
-const through = require('through2');
 
 const webpackConfig = {
     resolve: {
