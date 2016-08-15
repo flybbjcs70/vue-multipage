@@ -12,8 +12,8 @@ webpackJsonp([1],{
 	// 你封装的工具库
 
 	function say(msg) {
-		alert(msg);
-		alert(msg);
+		console.log(msg);
+		console.log(msg);
 	}
 
 /***/ }

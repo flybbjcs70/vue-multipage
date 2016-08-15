@@ -40,7 +40,7 @@ const webpackConfig = {
             {test: /\.vue$/, loader: 'vue'},
             {test: /\.js$/, loader: 'babel', exclude: /node_modules/},
 			{
-				test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+				test: /\.(png|jpe?g|gif)(\?.*)?$/,
 				loader: 'url',
 				query: {
 					limit: 500,
@@ -48,7 +48,7 @@ const webpackConfig = {
 				}
 			},
 			{
-				test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+				test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
 				loader: 'url',
 				query: {
 					limit: 1,
@@ -140,7 +140,6 @@ gulp.task('component', function () {
 		var path;
 		if (business[0] === 'common') {
 			path = ['./src/js/**/*.js','!./src/js/lib/*.js'];
-			
 		} else if (business[0] === jsFile) {
 			path = './src/js/'+ business[0] +'/*.js';
 		} else {
