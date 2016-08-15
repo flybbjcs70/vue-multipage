@@ -33,7 +33,7 @@ const webpackConfig = {
     },
     output: {
         publicPath: '/static/',
-		filename: 'js/[name]'
+		filename: 'es6/[name]'
 	},
     module: {
         loaders: [
@@ -126,7 +126,8 @@ gulp.task('component', function () {
 		var jsFile   = business[1].split('-')[0];
 		var path;
 		if (business[0] === 'common') {
-			path = src.js;
+			path = ['./src/js/**/*.js','!./src/js/lib/*.js'];
+			cp('./src/js/lib/*.js','./src/static/es6/lib')
 		} else if (business[0] === jsFile) {
 			path = './src/js/'+ business[0] +'/*.js';
 		} else {
@@ -172,7 +173,6 @@ gulp.task('views:build', function () {
 }); 
 gulp.task('views', function () {
     return gulp.src(src.views)
-        // .pipe(revAppend())
         .pipe(gulp.dest(dist.views));
 });
 gulp.task('reload', function () {
@@ -226,4 +226,8 @@ function compileJS(path) {
 	}))
 	.pipe(gulp.dest('./src/static'))
 	.pipe(gulp.dest('./public/static'))
+}
+function cp(from,to) {
+	gulp.src(from)
+		.pipe(gulp.dest(to))
 }

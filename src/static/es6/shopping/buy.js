@@ -53,11 +53,11 @@
 
 	'use strict';
 
-	var _indexInfo = __webpack_require__(2);
+	var _buyList = __webpack_require__(2);
 
-	var _indexInfo2 = _interopRequireDefault(_indexInfo);
+	var _buyList2 = _interopRequireDefault(_buyList);
 
-	var _loading = __webpack_require__(11);
+	var _loading = __webpack_require__(9);
 
 	var _loading2 = _interopRequireDefault(_loading);
 
@@ -66,7 +66,7 @@
 	var V = new Vue({
 		el: 'body',
 		components: {
-			IndexInfo: _indexInfo2.default, Loading: _loading2.default
+			List: _buyList2.default, Loading: _loading2.default
 		}
 	});
 
@@ -76,12 +76,12 @@
 
 	var __vue_script__, __vue_template__
 	__webpack_require__(3)
-	__vue_script__ = __webpack_require__(8)
+	__vue_script__ = __webpack_require__(7)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src/components/home/index-info.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(9)
+	  console.warn("[vue-loader] src/components/shopping/buy-list.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(8)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -91,7 +91,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "_v-63f1177d/index-info.vue"
+	  var id = "_v-84eee960/buy-list.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -109,14 +109,14 @@
 	var content = __webpack_require__(4);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(7)(content, {});
+	var update = __webpack_require__(6)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../node_modules/sass-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./index-info.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../node_modules/sass-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./index-info.vue");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./buy-list.vue", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./buy-list.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -134,7 +134,7 @@
 
 
 	// module
-	exports.push([module.id, "#kodo {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex; }\n\n#bg h3 {\n  background: url(" + __webpack_require__(6) + ");\n  color: #fff; }\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 	// exports
 
@@ -197,12 +197,6 @@
 
 /***/ },
 /* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "images/holmes.jpg?39e4bbb59b";
-
-/***/ },
-/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -424,71 +418,55 @@
 
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	// <template>
-	// 	<div>
-	// 		<h1>我是用户信息</h1>
-	// 		<figure>
-	// 			<img src="../../assets/images/home/logo.jpg" alt="头像">
-	// 		</figure>
-	// 		<div id="bg">
-	// 			<h3>这里是测试背景图片</h3>
-	// 			<p></p>
-	// 		</div>
-	//
-	// 		<div id="kodo">
-	// 			我是组件里引入的sass,并且是display:flex
-	// 		</div>
-	//
-	// 	</div>
+	//     <ul>
+	// 		<li>buy - list - 1</li>
+	// 		<li>buy - list - 2</li>
+	// 		<li>buy - list - 3</li>
+	// 		<li>buy - list - 4</li>
+	// 		<li>buy - list - 5</li>
+	// 	</ul>
 	// </template>
-	// <style rel="stylesheet/scss" lang="sass">
-	// 	@import "../../sass/home/index-info";
-	//     #bg h3 {
-	// 		background: url("../../assets/images/holmes.jpg");
-	// 		color: #fff;
-	// 	}
+	// <style>
+	//
 	// </style>
 	// <script>
-	// home业务模块下  只有index页面 用的组件
+
 	exports.default = {
-	    ready: function ready() {
-	        console.log('修改这里测试实时编译');
-	    }
+	    data: function data() {
+	        return {};
+	    },
+
+	    components: {}
 	};
 	// </script>
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	module.exports = "\n    <ul>\n\t\t<li>buy - list - 1</li>\n\t\t<li>buy - list - 2</li>\n\t\t<li>buy - list - 3</li>\n\t\t<li>buy - list - 4</li>\n\t\t<li>buy - list - 5</li>\n\t</ul>\n";
 
 /***/ },
 /* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "\n<div>\n\t<h1>我是用户信息</h1>\n\t<figure>\n\t\t<img src=\"" + __webpack_require__(10) + "\" alt=\"头像\">\n\t</figure>\n\t<div id=\"bg\">\n\t\t<h3>这里是测试背景图片</h3>\n\t\t<p></p>\n\t</div>\n\n\t<div id=\"kodo\">\n\t\t我是组件里引入的sass,并且是display:flex\n\t</div>\n\n</div>\n";
-
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "images/logo.jpg?82ceb5918f";
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var __vue_script__, __vue_template__
-	__webpack_require__(12)
-	__vue_script__ = __webpack_require__(14)
+	__webpack_require__(10)
+	__vue_script__ = __webpack_require__(12)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src/components/common/loading.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(15)
+	__vue_template__ = __webpack_require__(13)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -507,16 +485,16 @@
 	})()}
 
 /***/ },
-/* 12 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(13);
+	var content = __webpack_require__(11);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(7)(content, {});
+	var update = __webpack_require__(6)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -533,7 +511,7 @@
 	}
 
 /***/ },
-/* 13 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(5)();
@@ -541,13 +519,13 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 14 */
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -557,7 +535,8 @@
 	});
 	// <template>
 	//     <div id="loading">
-	// 		<h4>loading组件 正在加载中,请稍等..1 2.</h4>
+	// 		<!--修改这里试试,所有js都会编译,因为他是common全局公用的-->
+	// 		<h4>loading组件 正在加载中,请稍等...</h4>
 	// 	</div>
 	// </template>
 	// <style scoped rel="stylesheet/scss" lang="sass">
@@ -574,10 +553,10 @@
 	// </script>
 
 /***/ },
-/* 15 */
+/* 13 */
 /***/ function(module, exports) {
 
-	module.exports = "\n    <div id=\"loading\" _v-de00ae78=\"\">\n\t\t<h4 _v-de00ae78=\"\">loading组件 正在加载中,请稍等..1 2.</h4>\n\t</div>\n";
+	module.exports = "\n    <div id=\"loading\" _v-de00ae78=\"\">\n\t\t<!--修改这里试试,所有js都会编译,因为他是common全局公用的-->\n\t\t<h4 _v-de00ae78=\"\">loading组件 正在加载中,请稍等...</h4>\n\t</div>\n";
 
 /***/ }
 /******/ ]);

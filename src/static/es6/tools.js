@@ -45,12 +45,12 @@
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(89);
+	module.exports = __webpack_require__(22);
 
 
 /***/ },
 
-/***/ 89:
+/***/ 22:
 /***/ function(module, exports) {
 
 	// 你封装的工具库
