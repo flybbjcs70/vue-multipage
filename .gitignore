@@ -2,7 +2,6 @@
 *.log
 *.DS_Store
 /img/*
-/public/static
 webhook.php
 .inviteimg
 application/const.php

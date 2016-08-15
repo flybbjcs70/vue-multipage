@@ -1,4 +1,4 @@
-//zhushi
+// 二哲 - 2016年08月15日10:56:05
 const path = require('path');
 const gulp = require('gulp');
 const ugjs = require('gulp-uglify');
@@ -127,7 +127,8 @@ gulp.task('component', function () {
 		var path;
 		if (business[0] === 'common') {
 			path = ['./src/js/**/*.js','!./src/js/lib/*.js'];
-			cp('./src/js/lib/*.js','./src/static/es6/lib')
+			cp('./src/js/lib/*.js','./src/static/es6/lib');
+			cp('./src/js/lib/*.js','./public/static/es6/lib');
 		} else if (business[0] === jsFile) {
 			path = './src/js/'+ business[0] +'/*.js';
 		} else {
