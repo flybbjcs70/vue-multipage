@@ -32,7 +32,8 @@ const webpackConfig = {
     },
     output: {
         publicPath: '/static/',
-		filename: 'es6/[name]'
+		filename: 'es6/[name].js',
+		chunkFilename: 'es6/[id].js?[hash]'
 	},
     module: {
         loaders: [
@@ -122,7 +123,12 @@ gulp.task('js', function () {
 	
 	gulp.watch([src.js], function (event) {
 		var paths = watchPath(event, src.js, './src/static/es6/');
-		compileJS(paths.srcPath);
+		// console.log(paths.srcPath.split('/'));
+		if(paths.srcPath.split('/').length === 3) { // 共有库情况,要编译所有js
+			compileJS(['./src/js/**/*.js','!./src/js/lib/*.js']);
+		} else { // 否则 只编译变动js
+			compileJS(paths.srcPath);
+		}
 	})
 
 });
@@ -134,8 +140,7 @@ gulp.task('component', function () {
 		var path;
 		if (business[0] === 'common') {
 			path = ['./src/js/**/*.js','!./src/js/lib/*.js'];
-			cp('./src/js/lib/*.js','./src/static/es6/lib');
-			cp('./src/js/lib/*.js','./public/static/es6/lib');
+			
 		} else if (business[0] === jsFile) {
 			path = './src/js/'+ business[0] +'/*.js';
 		} else {
@@ -199,7 +204,9 @@ gulp.task('reload', function () {
     });
     gulp.start('js', 'component');
     gulp.watch([src.views], ['views']).on('change', bsReload);
-
+	// 初始化无需编译的lib库
+	cp('./src/js/lib/*.js','./src/static/es6/lib');
+	cp('./src/js/lib/*.js','./public/static/es6/lib');
 });
 gulp.task('images', function () {
     gulp.src(src.images)
@@ -225,8 +232,9 @@ function compileJS(path) {
 	// console.log(path);
 	return gulp.src(path)
 	.pipe(named(function (file) {
-		var history = JSON.parse(JSON.stringify(file)).history[0];
-		return history.split('/js/')[1];
+		var path = JSON.parse(JSON.stringify(file)).history[0];
+		var target = path.split('/js/')[1];
+		return target.substring(0,target.length - 3);
 	}))
 	.pipe(webpack(webpackConfig))
 	.pipe(browserSync.reload({

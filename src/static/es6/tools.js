@@ -45,16 +45,26 @@
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(26);
+	module.exports = __webpack_require__(20);
 
 
 /***/ },
 
-/***/ 26:
+/***/ 20:
 /***/ function(module, exports) {
 
-	// 你封装的工具库
 	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.say = say;
+	// 你封装的工具库
+
+	function say(msg) {
+		alert(msg);
+		alert(msg);
+	}
 
 /***/ }
 

@@ -4,7 +4,7 @@
 		<h4>loading组件 正在加载中,请稍等...</h4>
 		<!-- 测试字体文件 -->
 		<i class="iconfont">&#xe684;&#xe684;&#xe684;</i>
-	</div> 
+	</div>
 </template>
 <style scoped rel="stylesheet/scss" lang="sass">
 	i {

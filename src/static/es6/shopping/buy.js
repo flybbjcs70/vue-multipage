@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(20);
+	module.exports = __webpack_require__(21);
 
 
 /***/ },
@@ -441,7 +441,7 @@
 	// 		<h4>loading组件 正在加载中,请稍等...</h4>
 	// 		<!-- 测试字体文件 -->
 	// 		<i class="iconfont">&#xe684;&#xe684;&#xe684;</i>
-	// 	</div> 
+	// 	</div>
 	// </template>
 	// <style scoped rel="stylesheet/scss" lang="sass">
 	// 	i {
@@ -476,15 +476,16 @@
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = "\n    <div id=\"loading\" _v-de00ae78=\"\">\n\t\t<!--修改这里试试,所有js都会编译,因为他是common全局公用的-->\n\t\t<h4 _v-de00ae78=\"\">loading组件 正在加载中,请稍等...</h4>\n\t\t<!-- 测试字体文件 -->\n\t\t<i class=\"iconfont\" _v-de00ae78=\"\"></i>\n\t</div> \n";
+	module.exports = "\n    <div id=\"loading\" _v-de00ae78=\"\">\n\t\t<!--修改这里试试,所有js都会编译,因为他是common全局公用的-->\n\t\t<h4 _v-de00ae78=\"\">loading组件 正在加载中,请稍等...</h4>\n\t\t<!-- 测试字体文件 -->\n\t\t<i class=\"iconfont\" _v-de00ae78=\"\"></i>\n\t</div>\n";
 
 /***/ },
-/* 20 */
+/* 20 */,
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _buyList = __webpack_require__(21);
+	var _buyList = __webpack_require__(22);
 
 	var _buyList2 = _interopRequireDefault(_buyList);
 
@@ -502,17 +503,17 @@
 	});
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(22)
-	__vue_script__ = __webpack_require__(24)
+	__webpack_require__(23)
+	__vue_script__ = __webpack_require__(25)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src/components/shopping/buy-list.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(25)
+	__vue_template__ = __webpack_require__(26)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -531,13 +532,13 @@
 	})()}
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(23);
+	var content = __webpack_require__(24);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(7)(content, {});
@@ -557,7 +558,7 @@
 	}
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(5)();
@@ -571,7 +572,7 @@
 
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -603,7 +604,7 @@
 	// </script>
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports) {
 
 	module.exports = "\n    <ul>\n\t\t<li>buy - list - 1</li>\n\t\t<li>buy - list - 2</li>\n\t\t<li>buy - list - 3</li>\n\t\t<li>buy - list - 4</li>\n\t\t<li>buy - list - 5</li>\n\t</ul>\n";
