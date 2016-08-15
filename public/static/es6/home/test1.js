@@ -40,32 +40,20 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 0:
+/******/ ([
+/* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(20);
+	module.exports = __webpack_require__(1);
 
 
 /***/ },
-
-/***/ 20:
+/* 1 */
 /***/ function(module, exports) {
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.say = say;
-	// 你封装的工具库
-
-	function say(msg) {
-		console.log(msg);
-		console.log(msg);
-	}
+	console.log(2);
 
 /***/ }
-
-/******/ });
+/******/ ]);

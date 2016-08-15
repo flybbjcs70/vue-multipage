@@ -2,6 +2,7 @@
 const path = require('path');
 const gulp = require('gulp');
 const ugjs = require('gulp-uglify');
+const watch = require('gulp-watch');
 const webpack = require('webpack-stream');
 const named = require('vinyl-named');
 const del = require('del');
@@ -43,7 +44,7 @@ const webpackConfig = {
 				test: /\.(png|jpe?g|gif)(\?.*)?$/,
 				loader: 'url',
 				query: {
-					limit: 500,
+					limit: 500, // 换成你想要得大小
 					name: 'images/[name].[ext]?[hash:10]'
 				}
 			},
@@ -51,7 +52,7 @@ const webpackConfig = {
 				test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
 				loader: 'url',
 				query: {
-					limit: 1,
+					limit: 1, // 换成你想要得大小
 					name: 'fonts/[name].[hash:7].[ext]'
 				}
 			}
@@ -71,7 +72,7 @@ const processes = [
 const src = {
     css: './src/static/css/**/*.css',
     es6: './src/static/es6/**/*.js',
-    ifonts: './src/static/ifonts/**/*.{eot,svg,ttf,woff}',
+    fonts: './src/static/fonts/**/*.{eot,svg,ttf,woff}',
     images: './src/static/images/**/*.{png,jpg,jpeg}',
     js: './src/js/**/*.js',
     sass: './src/sass/**/*.scss',
@@ -81,7 +82,7 @@ const src = {
 const dist = {
     css: './public/static/css/',
     es6: './public/static/es6/',
-    ifonts: './public/static/ifonts/',
+    fonts: './public/static/fonts/',
     images: './public/static/images/',
     js: './public/static/js/',
     sass: './public/static/sass/',
@@ -121,7 +122,7 @@ gulp.task('sass', function () {
 });
 gulp.task('js', function () {
 	
-	gulp.watch([src.js], function (event) {
+	watch([src.js], function (event) {
 		var paths = watchPath(event, src.js, './src/static/es6/');
 		// console.log(paths.srcPath.split('/'));
 		if(paths.srcPath.split('/').length === 3) { // 共有库情况,要编译所有js
@@ -134,7 +135,7 @@ gulp.task('js', function () {
 });
 gulp.task('component', function () {
 	
-	gulp.watch(['./src/components/**/*.vue'], function (event) {
+	watch(['./src/components/**/*.vue'], function (event) {
 		var business = event.path.split('/').slice(-2);
 		var jsFile   = business[1].split('-')[0];
 		var path;
@@ -196,13 +197,13 @@ gulp.task('reload', function () {
         notify: false
     });
     //gulp.watch([csasspath],['collegesass']);
-    gulp.watch([src.sass]).on('change', function () {
+    watch([src.sass]).on('change', function () {
         runSequence('sass', 'css:dev', function () {
             bsReload();
         });
     });
     gulp.start('js', 'component');
-    gulp.watch([src.views], ['views']).on('change', bsReload);
+    watch([src.views], ['views']).on('change', bsReload);
 	// 初始化无需编译的lib库
 	cp('./src/js/lib/*.js','./src/static/es6/lib');
 	cp('./src/js/lib/*.js','./public/static/es6/lib');
@@ -211,14 +212,14 @@ gulp.task('images', function () {
     gulp.src(src.images)
         .pipe(gulp.dest(dist.images));
 });
-gulp.task('ifonts', function () {
-    return gulp.src(src.ifonts)
-        .pipe(gulp.dest(dist.ifonts));
+gulp.task('fonts', function () {
+    return gulp.src(src.fonts)
+        .pipe(gulp.dest(dist.fonts));
 });
 gulp.task('build', function () {
     BUILD = 'PUBLIC';
 
-    runSequence('clean', 'css:build', 'ugjs', 'views:build', 'images', 'ifonts',function() {
+    runSequence('clean', 'css:build', 'ugjs', 'views:build', 'images', 'fonts',function() {
     	// 上传静态资源文件到CDN
         /*exec('node upload.js', function (err, output) {
             if(err) console.log(err);
@@ -233,6 +234,7 @@ function compileJS(path) {
 	.pipe(named(function (file) {
 		var path = JSON.parse(JSON.stringify(file)).history[0];
 		var target = path.split('/js/')[1];
+		console.log(target);
 		return target.substring(0,target.length - 3);
 	}))
 	.pipe(webpack(webpackConfig))

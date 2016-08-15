@@ -73,7 +73,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 
-/******/ 			script.src = __webpack_require__.p + "es6/" + chunkId + ".js?" + "13783743f498010c6fdf" + "";
+/******/ 			script.src = __webpack_require__.p + "es6/" + chunkId + ".js?" + "780209b910f2c85904f8" + "";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -627,7 +627,7 @@
 /* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "images/iconfont.svg?7d1a6eabc8";
+	module.exports = __webpack_require__.p + "fonts/iconfont.7d1a6ea.svg";
 
 /***/ },
 /* 18 */

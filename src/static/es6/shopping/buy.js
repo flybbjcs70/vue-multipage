@@ -424,7 +424,7 @@
 /* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "images/iconfont.svg?7d1a6eabc8";
+	module.exports = __webpack_require__.p + "fonts/iconfont.7d1a6ea.svg";
 
 /***/ },
 /* 18 */
