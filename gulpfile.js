@@ -7,7 +7,7 @@ const named = require('vinyl-named');
 const del = require('del');
 const watchPath = require('gulp-watch-path');
 const replace = require('gulp-replace');
-const revAppend = require('gulp-rev-append');
+// const revAppend = require('gulp-rev-append');
 const rev = require('gulp-rev');
 const ifElse = require('gulp-if-else');
 const htmlreplace = require('gulp-html-replace');
@@ -77,10 +77,10 @@ const dist = {
     images: './public/static/images/',
     js: './public/static/js/',
     sass: './public/static/sass/',
-    views: './public/template'
+    views: './public/views'
 };
 
-var NODE_ENV = 'DEV';
+var BUILD = 'DEV';
 
 gulp.task('css:dev', function () {
 
@@ -93,7 +93,7 @@ gulp.task('css:build', function () {
 			extensions: ['png', /\.jpg#datauri$/i],
 			maxImageSize: 10 * 1024 // bytes,
 		}))
-        .pipe(ifElse(NODE_ENV === 'PUBLIC', function () {
+        .pipe(ifElse(BUILD === 'PUBLIC', function () {
             return postcss(processes)
         }))
         .pipe(rev())
@@ -144,7 +144,7 @@ gulp.task('clean', function () {
 });
 gulp.task('ugjs', function () {
     return gulp.src(src.es6)
-        .pipe(ifElse(NODE_ENV === 'PUBLIC', ugjs))
+        .pipe(ifElse(BUILD === 'PUBLIC', ugjs))
         .pipe(rev())
         .pipe(gulp.dest(dist.es6))
         .pipe(rev.manifest())
@@ -156,7 +156,7 @@ gulp.task('views:build', function () {
         .pipe(revCollector({
             replaceReved: true
         }))
-        .pipe(ifElse(NODE_ENV === 'PUBLIC', inlinesource))
+        .pipe(ifElse(BUILD === 'PUBLIC', inlinesource))
         .pipe(htmlreplace({
             js: {
                 src: '',
@@ -166,13 +166,13 @@ gulp.task('views:build', function () {
                 tpl: '<script>var DEV = false;</script>'
             }
         }))
-        .pipe(replace('../../', '//oaauo6w4j.qnssl.com/'))
-        .pipe(replace('../', '//oaauo6w4j.qnssl.com/'))
+        .pipe(replace('../../', 'YourCDNLink'))
+        .pipe(replace('../', 'YourCDNLink'))
         .pipe(gulp.dest(dist.views));
 }); 
 gulp.task('views', function () {
     return gulp.src(src.views)
-        .pipe(revAppend())
+        // .pipe(revAppend())
         .pipe(gulp.dest(dist.views));
 });
 gulp.task('reload', function () {
@@ -202,13 +202,14 @@ gulp.task('ifonts', function () {
         .pipe(gulp.dest(dist.ifonts));
 });
 gulp.task('build', function () {
-    NODE_ENV = 'PUBLIC';
+    BUILD = 'PUBLIC';
 
     runSequence('clean', 'css:build', 'ugjs', 'views:build', 'images', 'ifonts',function() {
-        exec('node upload.js', function (err, output) {
+    	// 上传静态资源文件到CDN
+        /*exec('node upload.js', function (err, output) {
             if(err) console.log(err);
             console.log(output);
-        });
+        });*/
     });
 });
 

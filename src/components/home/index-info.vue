@@ -8,12 +8,18 @@
 			<h3>这里是测试背景图片</h3>
 			<p></p>
 		</div>
+
+		<div id="kodo">
+			我是组件里引入的sass,并且是display:flex
+		</div>
+
 	</div>
 </template>
 <style rel="stylesheet/scss" lang="sass">
 	@import "../../sass/home/index-info";
     #bg h3 {
 		background: url("../../assets/images/holmes.jpg");
+		color: #fff;
 	}
 </style>
 <script>
