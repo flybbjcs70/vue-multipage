@@ -1,4 +1,4 @@
-// 二哲 - 2016年08月15日10:56:05
+// 二哲 - 2016年08月15日
 const path = require('path');
 const gulp = require('gulp');
 const ugjs = require('gulp-uglify');
@@ -8,7 +8,7 @@ const named = require('vinyl-named');
 const del = require('del');
 const watchPath = require('gulp-watch-path');
 const replace = require('gulp-replace');
-// const revAppend = require('gulp-rev-append');
+
 const rev = require('gulp-rev');
 const ifElse = require('gulp-if-else');
 const htmlreplace = require('gulp-html-replace');
