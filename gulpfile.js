@@ -46,6 +46,14 @@ const webpackConfig = {
 					name: 'images/[name].[ext]?[hash:10]'
 				}
 			},
+			{
+				test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+				loader: 'url',
+				query: {
+					limit: 1,
+					name: 'fonts/[name].[hash:7].[ext]'
+				}
+			}
         ]
     },
     babel: { //配置babel
