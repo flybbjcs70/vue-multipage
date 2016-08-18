@@ -44,7 +44,7 @@ const webpackConfig = {
 				test: /\.(png|jpe?g|gif)(\?.*)?$/,
 				loader: 'url',
 				query: {
-					limit: 500, // 换成你想要得大小
+					limit: 10000, // 换成你想要得大小
 					name: 'images/[name].[ext]?[hash:10]'
 				}
 			},
@@ -52,7 +52,7 @@ const webpackConfig = {
 				test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
 				loader: 'url',
 				query: {
-					limit: 1, // 换成你想要得大小
+					limit: 10000, // 换成你想要得大小
 					name: 'fonts/[name].[hash:7].[ext]'
 				}
 			}
@@ -80,13 +80,13 @@ const src = {
     views: './src/views/**/*.html'
 };
 const dist = {
-    css: './public/static/css/',
-    es6: './public/static/es6/',
-    fonts: './public/static/fonts/',
-    images: './public/static/images/',
-    js: './public/static/js/',
-    sass: './public/static/sass/',
-    views: './public/views'
+    css: './dist/static/css/',
+    es6: './dist/static/es6/',
+    fonts: './dist/static/fonts/',
+    images: './dist/static/images/',
+    js: './dist/static/js/',
+    sass: './dist/static/sass/',
+    views: './dist/views'
 };
 
 var BUILD = 'DEV';
@@ -152,8 +152,8 @@ gulp.task('component', function () {
 });
 gulp.task('clean', function () {
     del([
-        'public/static/es6/**/*',
-        'public/static/css/**/*'
+        'dist/static/es6/**/*',
+        'dist/static/css/**/*'
     ]);
 });
 gulp.task('ugjs', function () {
@@ -166,7 +166,7 @@ gulp.task('ugjs', function () {
 });
 
 gulp.task('views:build', function () {
-    return gulp.src(['./public/**/*.json', src.views])
+    return gulp.src(['./dist/**/*.json', src.views])
         .pipe(revCollector({
             replaceReved: true
         }))
@@ -206,7 +206,7 @@ gulp.task('reload', function () {
     watch([src.views], ['views']).on('change', bsReload);
 	// 初始化无需编译的lib库
 	cp('./src/js/lib/*.js','./src/static/es6/lib');
-	cp('./src/js/lib/*.js','./public/static/es6/lib');
+	cp('./src/js/lib/*.js','./dist/static/es6/lib');
 });
 gulp.task('images', function () {
     gulp.src(src.images)
@@ -242,7 +242,7 @@ function compileJS(path) {
 		stream: true
 	}))
 	.pipe(gulp.dest('./src/static'))
-	.pipe(gulp.dest('./public/static'))
+	.pipe(gulp.dest('./dist/static'))
 }
 function cp(from,to) {
 	gulp.src(from)

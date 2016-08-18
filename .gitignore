@@ -1,8 +1,8 @@
 .idea
 *.log
 *.DS_Store
-node_modules
 /img/*
 webhook.php
 .inviteimg
+node_modules
 application/const.php
