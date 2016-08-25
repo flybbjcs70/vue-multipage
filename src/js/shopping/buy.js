@@ -8,3 +8,4 @@ var V = new Vue({
 		List,Loading
 	}
 });
+ 

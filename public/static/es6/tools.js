@@ -34,26 +34,38 @@
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/static/";
+/******/ 	__webpack_require__.p = "yourcdnlink/static/";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(1);
+	module.exports = __webpack_require__(25);
 
 
 /***/ },
-/* 1 */
+
+/***/ 25:
 /***/ function(module, exports) {
 
 	"use strict";
 
-	console.log(2);
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.say = say;
+	// 你封装的工具库
+
+	function say(msg) {
+		console.log(msg);
+		console.log(msg);
+	}
 
 /***/ }
-/******/ ]);
+
+/******/ });
