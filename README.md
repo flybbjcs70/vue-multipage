@@ -34,6 +34,7 @@
 			|--- _index-info.scss // index-info组件样式 组件样式带_ 为组件私有
 			|--- _index-xxx.scss // index-xxx 组件样式
 			|--- _home-xxx.scss // home业务模块公用样式 带_
+			// 可以选择是否需要独立组件的样式,全部写在一个文件里也是没有问题的
 			|--- index.scss // home/index.html页面的样式文件(static/home/css/index.css)
 			...
 		|--- shopping // 同上

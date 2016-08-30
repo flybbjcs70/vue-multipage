@@ -73,7 +73,6 @@ const processes = [
 const src = {
 	css: './src/static/css/**/*.css',
 	es6: './src/static/es6/**/*.js',
-	mock: './src/mock/**/*.js',
 	fonts: './src/static/fonts/**/*.{eot,svg,ttf,woff}',
 	images: './src/static/images/**/*.{png,jpg,jpeg}',
 	js: './src/js/**/*.js',
@@ -173,14 +172,6 @@ gulp.task('clean', function () {
 		'public/static/css/**/*'
 	]);
 });
-gulp.task('ugjs', function () {
-	return gulp.src(src.es6)
-	.pipe(ifElse(BUILD === 'PUBLIC', ugjs))
-	.pipe(rev())
-	.pipe(gulp.dest(dist.es6))
-	.pipe(rev.manifest())
-	.pipe(gulp.dest(dist.es6))
-});
 gulp.task('ugjs:build', function () {
 	return gulp.src('./src/tmp/**/*.js')
 	.pipe(ifElse(BUILD === 'PUBLIC', ugjs))
@@ -201,15 +192,6 @@ gulp.task('views:build', function () {
 	return gulp.src(['./public/**/*.json', src.views])
 	.pipe(revCollector({
 		replaceReved: true
-	}))
-	.pipe(htmlreplace({
-		js: {
-			src: '',
-			tpl: ''
-		}, dev: {
-			src: '',
-			tpl: '<script>var DEV = false;</script>'
-		}
 	}))
 	.pipe(replace('../../assets', ''+ CDN +'/static')) // 直接html页面引入样式情况
 	.pipe(replace('../assets', ''+ CDN +'/static')) // 直接html页面引入样式情况
@@ -237,7 +219,6 @@ function init() {
 			bsReload();
 		});
 	});
-	watch([src.mock]).on('change',bsReload);
 	gulp.start('js', 'component');
 	watch([src.views]).on('change', function() {
 		runSequence('views', function () {
@@ -260,16 +241,13 @@ function init() {
 	cp('./src/assets/fonts/**/*.{eot,svg,ttf,woff}','./src/static/fonts');
 }
 function compileJS(path,dest) {
-	// console.log(path);
 	dest = dest || './src/static';
-	webpackConfig.output.publicPath = BUILD === 'PUBLIC' ? ''+ CDN +'/static' : '/static/';
+	webpackConfig.output.publicPath = BUILD === 'PUBLIC' ? ''+ CDN +'/static/' : '/static/';
 	
-	console.log(webpackConfig)
 	return gulp.src(path)
 	.pipe(named(function (file) {
 		var path = JSON.parse(JSON.stringify(file)).history[0];
 		var target = path.split('/js/')[1];
-		// console.log(target);
 		return target.substring(0,target.length - 3);
 	}))
 	.pipe(webpack(webpackConfig))
