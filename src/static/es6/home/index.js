@@ -73,7 +73,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 
-/******/ 			script.src = __webpack_require__.p + "es6/" + chunkId + ".js?" + "804ac614985db8365da1" + "";
+/******/ 			script.src = __webpack_require__.p + "es6/" + chunkId + ".js?" + "17746a2b977e8cc43155" + "";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -116,16 +116,24 @@
 
 	var _loading2 = _interopRequireDefault(_loading);
 
+	var _vTap = __webpack_require__(25);
+
+	var _vTap2 = _interopRequireDefault(_vTap);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	Vue.use(_vTap2.default);
 	var V = new Vue({
 		el: 'body',
 		methods: {
 			sayHi: function sayHi() {
 				__webpack_require__.e/* nsure */(1, function () {
-					var say = __webpack_require__(25).say;
+					var say = __webpack_require__(26).say;
 					say('hi');
 				});
+			},
+			tap: function tap() {
+				console.log('hahah');
 			}
 		},
 		components: {
@@ -577,7 +585,7 @@
 
 
 	// module
-	exports.push([module.id, "#kodo {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex; }\n\n#bg h3 {\n  background: url(" + __webpack_require__(12) + ");\n  color: #fff; }\n", ""]);
+	exports.push([module.id, "#kodo {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex; }\n\nimg {\n  width: 70px;\n  height: 70px;\n  border-radius: 50%; }\n\n#bg h3 {\n  background: url(" + __webpack_require__(12) + ");\n  color: #fff; }\n", ""]);
 
 	// exports
 
@@ -616,6 +624,11 @@
 	// </template>
 	// <style rel="stylesheet/scss" lang="sass">
 	// 	@import "../../sass/home/index-info";
+	// 	img {
+	// 		width:70px;
+	// 		height:70px;
+	// 		border-radius: 50%;
+	// 	}
 	//     #bg h3 {
 	// 		background: url("../../assets/images/holmes.jpg");
 	// 		color: #fff;
@@ -786,6 +799,124 @@
 /***/ function(module, exports) {
 
 	module.exports = "\n    <div id=\"loading\" _v-77f42ef0=\"\">\n\t\t<!--修改这里试试,所有js都会编译,因为他是common全局公用的-->\n\t\t<h4 _v-77f42ef0=\"\">loading组件 正在加载中,请稍等...</h4>\n\t\t<!-- 测试字体文件 -->\n\t\t<i class=\"iconfont\" _v-77f42ef0=\"\"></i>\n\t</div>\n";
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by 二哲 on 15/12/6.
+	 */
+	/*
+	 * 不带参数指令
+	 * v-tap=handler
+	 * or
+	 * 带参数指令
+	 * v-tap=handler($index,el,$event)
+	 *
+	 * !!!新增!!!
+	 * 把tapObj对象注册在原生event对象上
+	 * 	event.tapObj拥有6个值
+	 * 	pageX,pageY,clientX,clientY,distanceX,distanceY
+	 * 后面2个分别的手指可能移动的位置(以后可用于拓展手势)
+	 *
+	 * */
+	;(function() {
+		var vueTap = {};
+		vueTap.install = function(Vue) {
+			Vue.directive('tap', {
+				isFn : true,
+				acceptStatement : true,
+				bind : function() {
+					//bind callback
+				},
+				update : function(fn) {
+					var self = this;
+					self.tapObj = {};
+					
+					if(typeof fn !== 'function') {
+						return console.error('The param of directive "v-tap" must be a function!');
+					}
+					self.handler = function(e) { //This directive.handler
+						e.tapObj = self.tapObj;
+						fn.call(self,e);
+					};
+					if(self.isPC()) {
+						self.el.addEventListener('click',function(e) {
+							e.preventDefault();
+							fn.call(self,e);
+						},false);
+					} else {
+						this.el.addEventListener('touchstart',function(e) {
+							
+							if(self.modifiers.stop)
+								e.stopPropagation();
+							if(self.modifiers.prevent)
+								e.preventDefault();
+							self.touchstart(e,self);
+						},false);
+						this.el.addEventListener('touchend',function(e) {
+							e.preventDefault();
+							if(self.el.href && !self.modifiers.prevent) {
+								return window.location = self.el.href;
+							}
+							return self.touchend(e,self,fn);
+						},false);
+					}
+				},
+				unbind : function() {},
+				isTap : function() {
+					var self   = this;
+					if(self.el.disabled){
+						return false;
+					}
+					var tapObj = this.tapObj;
+					return this.time < 150 && Math.abs(tapObj.distanceX) < 2 && Math.abs(tapObj.distanceY) < 2;
+				},
+				isPC : function() {
+					var uaInfo = navigator.userAgent;
+					var agents = ["Android", "iPhone", "Windows Phone", "iPad", "iPod"];
+					var flag = true;
+					for (var i = 0; i < agents.length; i++) {
+						if (uaInfo.indexOf(agents[i]) > 0) { flag = false; break; }
+					}
+					return flag;
+				},
+				touchstart : function(e,self) {
+					var touches = e.touches[0];
+					var tapObj = self.tapObj;
+					tapObj.pageX = touches.pageX;
+					tapObj.pageY = touches.pageY;
+					tapObj.clientX = touches.clientX;
+					tapObj.clientY = touches.clientY;
+					self.time = +new Date();
+				},
+				touchend : function(e,self) {
+					var touches = e.changedTouches[0];
+					var tapObj = self.tapObj;
+					self.time = +new Date() - self.time;
+					tapObj.distanceX = tapObj.pageX - touches.pageX;
+					tapObj.distanceY = tapObj.pageY - touches.pageY;
+					
+					if (!self.isTap(tapObj)) return;
+					setTimeout(function() {
+						self.handler(e);
+					},150)
+				}
+			});
+		};
+		
+		if (true) {
+			module.exports = vueTap;
+		} else if (typeof define == "function" && define.amd) {
+			define([], function(){ return vueTap })
+		} else if (window.Vue) {
+			window.vueTap = vueTap;
+			Vue.use(vueTap);
+		}
+		
+	})();
+
 
 /***/ }
 /******/ ]);

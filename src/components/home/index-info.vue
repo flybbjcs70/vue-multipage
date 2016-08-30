@@ -17,6 +17,11 @@
 </template>
 <style rel="stylesheet/scss" lang="sass">
 	@import "../../sass/home/index-info";
+	img {
+		width:70px;
+		height:70px;
+		border-radius: 50%;
+	}
     #bg h3 {
 		background: url("../../assets/images/holmes.jpg");
 		color: #fff;
