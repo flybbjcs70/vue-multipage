@@ -73,7 +73,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 
-/******/ 			script.src = __webpack_require__.p + "es6/" + chunkId + ".js?" + "17746a2b977e8cc43155" + "";
+/******/ 			script.src = __webpack_require__.p + "es6/" + chunkId + ".js?" + "fc1dfae0931aeb359718" + "";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -85,7 +85,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "yourcdnlink/static/";
+/******/ 	__webpack_require__.p = "/static/";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);

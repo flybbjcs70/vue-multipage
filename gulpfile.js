@@ -24,14 +24,14 @@ const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const revCollector = require('gulp-rev-collector');
 const exec = require('child_process').exec;
-
+const CDN = 'yourCDNLink';
 var webpackConfig = {
 	resolve: {
 		root: path.join(__dirname, 'node_modules'),
 		extensions: ['', '.js', '.vue', '.scss', '.css']
 	},
 	output: {
-		publicPath: 'yourcdnlink/static/',
+		// publicPath: 'yourcdnlink/static/',
 		filename: 'es6/[name].js',
 		chunkFilename: 'es6/[id].js?[hash]'
 	},
@@ -63,6 +63,7 @@ var webpackConfig = {
 		"plugins": ["transform-runtime"]
 	}
 };
+
 const processes = [
 	autoprefixer({browsers: ['last 2 version', 'safari 5', 'opera 12.1', 'ios 6', 'android 4', '> 10%']}),
 	precss,
@@ -71,7 +72,7 @@ const processes = [
 // background: color($blue blackness(20%));  precss为了用这样的语法
 const src = {
 	css: './src/static/css/**/*.css',
-	tmp: './src/tmp/**/*.js',
+	es6: './src/static/es6/**/*.js',
 	mock: './src/mock/**/*.js',
 	fonts: './src/static/fonts/**/*.{eot,svg,ttf,woff}',
 	images: './src/static/images/**/*.{png,jpg,jpeg}',
@@ -82,7 +83,7 @@ const src = {
 };
 const dist = {
 	css: './public/static/css/',
-	es6: './public/static/',
+	es6: './public/static/es6',
 	fonts: './public/static/fonts/',
 	images: './public/static/images/',
 	js: './public/static/js/',
@@ -91,14 +92,29 @@ const dist = {
 };
 
 var BUILD = 'DEV';
-
+gulp.task('build', function () {
+	BUILD = 'PUBLIC';
+	build(function() {
+		del(['./src/tmp'])
+	});
+});
+gulp.task('reload', function () {
+	browserSync.init(src.views, {
+		startPath: "/views/",
+		server: {
+			baseDir : ['./src']
+		},
+		notify: false
+	});
+	init();// watch
+});
 gulp.task('css:dev', function () {
 	
 	return gulp.src(src.css)
 	.pipe(gulp.dest(dist.css));
 });
 gulp.task('css:build', function () {
-	gulp.src(src.css)
+	return gulp.src(src.css)
 	.pipe(base64({
 		extensions: ['png', /\.jpg#datauri$/i],
 		maxImageSize: 10 * 1024 // bytes,
@@ -113,7 +129,7 @@ gulp.task('css:build', function () {
 	
 });
 gulp.task('sass', function () {
-	gulp.src(src.sass)
+	return gulp.src(src.sass)
 	.pipe(sourcemaps.init())
 	.pipe(sass().on('error', sass.logError))
 	.pipe(postcss(processes))
@@ -152,25 +168,34 @@ gulp.task('component', function () {
 	
 });
 gulp.task('clean', function () {
-	del.sync([
-		'./public',
+	del([
+		'public/static/es6/**/*',
+		'public/static/css/**/*'
 	]);
 });
 gulp.task('ugjs', function () {
-	gulp.src(src.tmp)
+	return gulp.src(src.es6)
 	.pipe(ifElse(BUILD === 'PUBLIC', ugjs))
 	.pipe(rev())
 	.pipe(gulp.dest(dist.es6))
 	.pipe(rev.manifest())
 	.pipe(gulp.dest(dist.es6))
 });
-gulp.task('js:build', function () {
-	cp('./src/js/lib/*.js', './src/tmp/es6/lib');
-	return compileJS(['./src/js/**/*.js', '!./src/js/lib/*.js'], './src/tmp');
+gulp.task('ugjs:build', function () {
+	return gulp.src('./src/tmp/**/*.js')
+	.pipe(ifElse(BUILD === 'PUBLIC', ugjs))
+	.pipe(rev())
+	.pipe(gulp.dest('./public/static/'))
+	.pipe(rev.manifest())
+	.pipe(gulp.dest('./public/static/'))
 });
-gulp.task('js:dev', function () {
-	cp('./src/js/lib/*.js', './src/static/es6/lib');
-	return compileJS(['./src/js/**/*.js', '!./src/js/lib/*.js']);
+gulp.task('js:compile', function () {
+	cp('./src/js/lib/*.js','./src/static/es6/lib');
+	return compileJS(['./src/js/**/*.js','!./src/js/lib/*.js']);
+});
+gulp.task('js:build', function () {
+	cp('./src/js/lib/*.js','./src/tmp/es6/lib');
+	return compileJS(['./src/js/**/*.js','!./src/js/lib/*.js'],'./src/tmp');
 });
 gulp.task('views:build', function () {
 	return gulp.src(['./public/**/*.json', src.views])
@@ -186,56 +211,26 @@ gulp.task('views:build', function () {
 			tpl: '<script>var DEV = false;</script>'
 		}
 	}))
-	.pipe(replace('../../assets', 'yourCDNlink/static')) // 直接html页面引入样式情况
-	.pipe(replace('../assets', 'yourCDNlink/static')) // 直接html页面引入样式情况
-	.pipe(replace('../../', 'yourCDNlink/')) // 替换html页面静态资源地址
-	.pipe(replace('../', 'yourCDNlink/')) // 替换html页面静态资源地址
+	.pipe(replace('../../assets', ''+ CDN +'/static')) // 直接html页面引入样式情况
+	.pipe(replace('../assets', ''+ CDN +'/static')) // 直接html页面引入样式情况
+	.pipe(replace('../../', ''+ CDN +'/')) // 替换html页面静态资源地址
+	.pipe(replace('../', ''+ CDN +'/')) // 替换html页面静态资源地址
 	.pipe(gulp.dest(dist.views));
 });
 gulp.task('views', function () {
 	return gulp.src(src.views)
 	.pipe(gulp.dest(dist.views));
 });
-gulp.task('reload', function () {
-	webpackConfig.output.publicPath = '/static/';
-	browserSync.init(src.views, {
-		startPath: "/views/",
-		server: {
-			baseDir : ['./src']
-		},
-		notify: false
-	});
-	init();// watch
-});
+
 gulp.task('images', function () {
 	gulp.src(src.images)
 	.pipe(gulp.dest(dist.images));
 });
 gulp.task('fonts', function () {
-	gulp.src(src.fonts)
+	return gulp.src(src.fonts)
 	.pipe(gulp.dest(dist.fonts));
 });
-gulp.task('build:dev', function () {
-	build(['clean','sass', 'css:build','js:dev', 'views:build', 'images', 'fonts'],function() {
-		// 上传静态资源文件到CDN
-		buildJs('./src/static/**/*.js');
-		/*exec('node upload.js', function (err, output) {
-		 if(err) console.log(err);
-		 console.log(output);
-		 });*/
-	});
-});
-gulp.task('build', function () {
-	BUILD = 'PUBLIC';
-	build(['clean','sass', 'css:build','js:build', 'ugjs', 'views:build', 'images', 'fonts'],function() {
-		del.sync(['./src/tmp']);
-		// 上传静态资源文件到CDN
-		/*exec('node upload.js', function (err, output) {
-		 if(err) console.log(err);
-		 console.log(output);
-		 });*/
-	});
-});
+
 function init() {
 	watch([src.sass]).on('change', function () {
 		runSequence('sass', 'css:dev', function () {
@@ -267,6 +262,9 @@ function init() {
 function compileJS(path,dest) {
 	// console.log(path);
 	dest = dest || './src/static';
+	webpackConfig.output.publicPath = BUILD === 'PUBLIC' ? ''+ CDN +'/static' : '/static/';
+	
+	console.log(webpackConfig)
 	return gulp.src(path)
 	.pipe(named(function (file) {
 		var path = JSON.parse(JSON.stringify(file)).history[0];
@@ -287,19 +285,16 @@ function cp(from,to) {
 	gulp.src(from)
 	.pipe(gulp.dest(to));
 }
-function build(taskArr,cb) {
+
+function build(cb) {
 	cp('./src/assets/images/**/*.*','./src/static/images');
 	cp('./src/assets/fonts/**/*.{eot,svg,ttf,woff}','./src/static/fonts');
-	runSequence(taskArr,function() {
+	runSequence('clean','sass', 'css:build','js:build', 'ugjs:build', 'views:build', 'images', 'fonts',function() {
+		// 上传静态资源文件到CDN
 		cb && cb();
+		/*exec('node upload.js', function (err, output) {
+			if(err) console.log(err);
+			console.log(output);
+		});*/
 	});
-}
-function buildJs(path) {
-	path = path || src.tmp;
-	return gulp.src(path)
-	.pipe(ifElse(BUILD === 'PUBLIC', ugjs))
-	.pipe(rev())
-	.pipe(gulp.dest(dist.es6))
-	.pipe(rev.manifest())
-	.pipe(gulp.dest(dist.es6))
 }
