@@ -73,7 +73,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 
-/******/ 			script.src = __webpack_require__.p + "es6/" + chunkId + ".js?" + "fc1dfae0931aeb359718" + "";
+/******/ 			script.src = __webpack_require__.p + "es6/" + chunkId + ".js?" + "2f462827ef45e6679f44" + "";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -120,7 +120,13 @@
 
 	var _vTap2 = _interopRequireDefault(_vTap);
 
+	var _ajaxurl = __webpack_require__(26);
+
+	var _ajaxurl2 = _interopRequireDefault(_ajaxurl);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	console.log(_ajaxurl2.default, '---我是测试环境变量配置用'); // 配置了别名,可简写可不简写, 对于懒人的我喜欢ide的补全,所以不简写
 
 	Vue.use(_vTap2.default);
 	var V = new Vue({
@@ -128,7 +134,7 @@
 		methods: {
 			sayHi: function sayHi() {
 				__webpack_require__.e/* nsure */(1, function () {
-					var say = __webpack_require__(26).say;
+					var say = __webpack_require__(27).say;
 					say('hi');
 				});
 			},
@@ -917,6 +923,26 @@
 		
 	})();
 
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	var server1 = 'https://production.server.com';
+	var server2 = 'https://dev.server.com';
+
+	var useServer = null;
+	if (false) {
+		useServer = server1;
+	} else if (true) {
+		useServer = server2;
+	}
+	exports.default = useServer;
 
 /***/ }
 /******/ ]);
